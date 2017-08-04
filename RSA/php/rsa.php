@@ -8,13 +8,12 @@ $privatekey = "<RSAKeyValue><Modulus>18lmL3io599boCL7+8TtTkSYI2b9uLjAfw0t1gndISo
 $publickey = "<RSAKeyValue><Modulus>18lmL3io599boCL7+8TtTkSYI2b9uLjAfw0t1gndISoLu5w8YmvYLBGUpU/IOwinCrJgRSU69xXtTNXS3K6I2IGdWax+Ts4f7kj1VSXGrjAAyAxUoBMwTry69X9J2bxcHu/dxpMuBLt/Vzh+zRyZWYqCdx/2t8Hbl90ydgA8Urs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
 
 $rsa = new Crypt_RSA();
+$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
+
+
 $rsa->loadKey($publickey);
 
 $plaintext = 'zzz';
-//define('CRYPT_RSA_PKCS15_COMPAT', true);
-
-$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
-
 
 //php 加密
 $encrpted = base64_encode($rsa->encrypt($plaintext));
@@ -32,8 +31,6 @@ $ciphertext = "jHj/kLDp3DO5JFNmzMG3L8eREg/W25VQDl8Z+skaER/RQNqvwhe3SFa7VHD64hPBT
 
 $ciphertext =base64_decode(($ciphertext));
 $rsa->loadKey($privatekey);
-//define('CRYPT_RSA_PKCS15_COMPAT', true);
-//$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
 $plaintext = $rsa->decrypt($ciphertext);
 
 echo "\r\n" . $plaintext;
